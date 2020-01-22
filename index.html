@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">New York Times Search</div>
+        <div class= "row"> 
+            <div class="col-md-12" > Search Term:
+                <input type="text" id="search">
+            </div>
+            <div class="col-md-12">Number of Records to Retrieve:
+                <input type="text" id="record">
+            </div>
+            <div class="col-md-12">Start Year (Optional):
+                <input type="text" id="startYear">
+            </div>
+            <div class="col-md-12">End Year (Optional):
+                <input type="text" id="endYear">
+            </div>
+            <div class="col-md-6">
+                <button id="searchBtn">
+                    Search
+                </button>
+                <button id="clearBtn">
+                    Clear Results
+                </button>
+            </div>
+        </div>
+        <div id="top-articles" class="row" class="col-md-12">Top Articles</div>
+        <footer>
+            <div>
+              <p>Made with lots and lots of love</p>
+            </div>
+        </footer>
+    </div>
+
+    <script type="text/javascript">
+
+        var search = $("#search").val();
+        var hits = $("#record").val();
+        var startYear = $("#startYear").val();
+        var endYear = $("#endYear").val();
+
+
+    var queryURL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + search + '&hits=' + hits + '&begin_year=' + startYear + '&end_year=' + endYear + '&api-key=GvUF7E6SmOed4riHYqp3xOp5YuyYb69Q'
+
+
+        $("#searchBtn").on("click", function(){
+
+        $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response){
+
+                for(var i = 0; i < hits; i++) {
+                    $("#top-articles").append(response.response.docs[i]);
+                }
+            })
+
+        })
+
+    </script>
+
+</body>
+</html>
