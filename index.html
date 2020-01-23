@@ -55,7 +55,7 @@
     </div>
     <script type="text/javascript">
       $(document).ready(function() {
-        $("#searchBtn").click(function() {        
+        $("#searchBtn").click(function() {                    
           var queryURL =
             "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" +
             $("#searchTerm").val() +                  
@@ -70,8 +70,9 @@
             method: "GET"
           }).then(function(response) {
             console.log("response: ", response);
+            var recordNum = $("#recordNum").val();
             for (var i = 0; i < recordNum; i++) {
-             console.log("getting record: ", response.response.docs[i])
+             console.log("getting record: ", response.response.docs[i])            
               $("#top-articles-list").append(response.response.docs[i].abstract);        
             }
           });
